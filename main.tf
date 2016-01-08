@@ -21,4 +21,8 @@ resource "aws_route_table_association" "private" {
 
   subnet_id = "${element(aws_subnet.private.*.id, count.index)}"
   route_table_id = "${element(split(",", var.route_table_ids), count.index)}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
